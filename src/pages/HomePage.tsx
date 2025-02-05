@@ -1,8 +1,8 @@
 import { useState } from "react";
-import Navbar from "../components/Navbar/Navbar";
-import TextEditor from "../components/text-editor/TextEditor";
-import { Counter } from "../components/counter/Counter";
-import Form from "../components/Form/Form";
+import Navbar from "../components/Navbar/Navbar.tsx";
+import TextEditor from "../components/text-editor/TextEditor.tsx";
+import { Counter } from "../components/counter/Counter.tsx";
+import Form from "../components/form/Form.tsx";
 import { Outlet } from "react-router-dom";
 const components: Record<string, React.ComponentType> = {
   Counter,
@@ -13,7 +13,8 @@ const components: Record<string, React.ComponentType> = {
 const Homepage = () => {
   const [component, setComponent] = useState<string | null>("Counter");
 
-  const SelectedComponent = components[component] || null;
+  const SelectedComponent =
+    components[component as keyof typeof components] || null;
 
   return (
     <div>
