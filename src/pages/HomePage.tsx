@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Navbar from "../components/Navbar/Navbar.tsx";
-import TextEditor from "../components/text-editor/TextEditor.tsx";
+import TextEditor from "../components/text-editor/Texteditor.tsx";
 import { Counter } from "../components/counter/Counter.tsx";
 import Form from "../components/form/Form.tsx";
 import { Outlet } from "react-router-dom";
