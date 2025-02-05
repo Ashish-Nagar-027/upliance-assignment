@@ -1,3 +1,9 @@
+// ==========================================
+// ==========================================
+// i will add this to .env later
+// ==========================================
+// ==========================================
+
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 
@@ -23,3 +29,8 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
 export const provider = new GoogleAuthProvider();
+// ==========================================
+// ==========================================
+// i will add this to .env later
+// ==========================================
+// ==========================================
