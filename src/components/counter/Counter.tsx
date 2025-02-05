@@ -1,6 +1,7 @@
 import { Button, Container, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSpring, animated } from "@react-spring/web";
+import { useNavigate } from "react-router-dom";
 
 export const Counter = () => {
   const [count, setCount] = useState(
@@ -21,6 +22,11 @@ export const Counter = () => {
     backgroundColor: getBackgroundColor(count),
     config: { tension: 200, friction: 30 },
   });
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    navigate(`/`);
+  }, []);
 
   return (
     <animated.div
