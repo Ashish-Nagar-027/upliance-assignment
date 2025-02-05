@@ -9,9 +9,16 @@ interface DashboardDataProp {
   } | null;
 }
 
+type dataType = {
+  name: string;
+  address: string;
+  email: string;
+  phone: string;
+};
+
 const DashboardData = ({ logout, userInfo }: DashboardDataProp) => {
   const count = localStorage.getItem("counter");
-  const [formData, setFormData] = useState(null);
+  const [formData, setFormData] = useState<dataType | null>(null);
 
   useEffect(() => {
     const userSavedData = localStorage.getItem("formData");
