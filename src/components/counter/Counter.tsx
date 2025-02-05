@@ -1,9 +1,15 @@
 import { Button, Container, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSpring, animated } from "@react-spring/web";
 
 export const Counter = () => {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(
+    () => Number(localStorage.getItem("counter")) || 0
+  );
+
+  useEffect(() => {
+    localStorage.setItem("counter", count.toString());
+  }, [count]);
 
   const getBackgroundColor = (value: number) => {
     const maxCount = 10;
@@ -33,13 +39,12 @@ export const Counter = () => {
           alignItems: "center",
           justifyContent: "center",
           flexDirection: "column",
-          mr: 2,
           fontFamily: "monospace",
           fontWeight: 700,
           letterSpacing: ".3rem",
           color: "inherit",
           textDecoration: "none",
-          height: "100vh",
+          // height: "100vh",
         }}
       >
         <Typography variant="h1" sx={{}}>

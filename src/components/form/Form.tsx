@@ -1,5 +1,5 @@
 import { Button, Container, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Form = () => {
   const [formData, setFormData] = useState({
@@ -18,10 +18,10 @@ const Form = () => {
     e.preventDefault();
     const userDataWithId = { id: Date.now(), ...formData };
     console.log("Form Data Submitted:", userDataWithId);
-    // Save to local storage or Redux Toolkit
+    localStorage.setItem("formData", JSON.stringify(userDataWithId));
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       if (Object.values(formData).some((value) => value)) {
         e.preventDefault();
@@ -31,6 +31,14 @@ const Form = () => {
     window.addEventListener("beforeunload", handleBeforeUnload);
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, [formData]);
+
+  useEffect(() => {
+    const userSavedData = localStorage.getItem("formData");
+    if (userSavedData) {
+      const parsedData = JSON.parse(userSavedData);
+      setFormData({ ...parsedData });
+    }
+  }, []);
 
   return (
     <Container
