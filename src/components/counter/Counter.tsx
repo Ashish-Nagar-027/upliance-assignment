@@ -12,14 +12,10 @@ export const Counter = () => {
     localStorage.setItem("counter", count.toString());
   }, [count]);
 
-  const getBackgroundColor = (value: number) => {
-    const maxCount = 10;
-    const lightness = 90 - (value / maxCount) * 60;
-    return `hsl(200, 100%, ${lightness}%)`;
-  };
+  const hue = Math.abs(count) * 10;
 
   const { backgroundColor } = useSpring({
-    backgroundColor: getBackgroundColor(count),
+    backgroundColor: `hsl(${hue}, 70%, 85%)`,
     config: { tension: 200, friction: 30 },
   });
 
@@ -37,7 +33,7 @@ export const Counter = () => {
         alignItems: "center",
         justifyContent: "center",
         flexDirection: "column",
-        transition: "background-color 0.5s ease",
+        transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
       }}
     >
       <Container
