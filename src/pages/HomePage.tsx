@@ -11,15 +11,15 @@ const components: Record<string, React.ComponentType> = {
 };
 
 const Homepage = () => {
-  const [component, setComponent] = useState<string>("Counter");
+  const [component, setComponent] = useState<string | null>("Counter");
 
   const SelectedComponent = components[component] || null;
 
   return (
     <div>
       <Navbar setComponent={setComponent} />
-      <Outlet />
-      {SelectedComponent && <SelectedComponent />}
+
+      {SelectedComponent ? <SelectedComponent /> : <Outlet />}
     </div>
   );
 };

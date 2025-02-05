@@ -1,41 +1,68 @@
 import { Button, Container, Typography } from "@mui/material";
 import { useState } from "react";
+import { useSpring, animated } from "@react-spring/web";
 
 export const Counter = () => {
   const [count, setCount] = useState(0);
 
+  const getBackgroundColor = (value: number) => {
+    const maxCount = 10;
+    const lightness = 90 - (value / maxCount) * 60;
+    return `hsl(200, 100%, ${lightness}%)`;
+  };
+
+  const { backgroundColor } = useSpring({
+    backgroundColor: getBackgroundColor(count),
+    config: { tension: 200, friction: 30 },
+  });
+
   return (
-    <Container
-      sx={{
+    <animated.div
+      style={{
+        backgroundColor,
+        height: "90vh",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         flexDirection: "column",
-        mr: 2,
-        fontFamily: "monospace",
-        fontWeight: 700,
-        letterSpacing: ".3rem",
-        color: "inherit",
-        textDecoration: "none",
       }}
     >
-      <Typography variant="h1" sx={{}}>
-        {count}
-      </Typography>
       <Container
         sx={{
-          justifyContent: "center",
           display: "flex",
-          gap: "1rem",
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "column",
+          mr: 2,
+          fontFamily: "monospace",
+          fontWeight: 700,
+          letterSpacing: ".3rem",
+          color: "inherit",
+          textDecoration: "none",
+          height: "100vh",
         }}
       >
-        <Button onClick={() => setCount(count - 1)} variant="contained">
-          decrease
-        </Button>
-        <Button onClick={() => setCount(count + 1)} variant="contained">
-          increase
-        </Button>
+        <Typography variant="h1" sx={{}}>
+          {count}
+        </Typography>
+        <Container
+          sx={{
+            justifyContent: "center",
+            display: "flex",
+            gap: "1rem",
+          }}
+        >
+          <Button onClick={() => setCount(count - 1)} variant="contained">
+            decrease
+          </Button>
+          <Button onClick={() => setCount(0)} variant="contained">
+            reset
+          </Button>
+          <Button onClick={() => setCount(count + 1)} variant="contained">
+            increase
+          </Button>
+        </Container>
       </Container>
-    </Container>
+    </animated.div>
   );
 };
