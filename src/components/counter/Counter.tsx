@@ -31,6 +31,7 @@ export const Counter = () => {
         alignItems: "center",
         justifyContent: "center",
         flexDirection: "column",
+        transition: "background-color 2s ease",
       }}
     >
       <Container
