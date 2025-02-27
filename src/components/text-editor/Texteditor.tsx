@@ -4,7 +4,7 @@ import "react-quill/dist/quill.snow.css";
 import { Button, Container, Typography } from "@mui/material";
 
 const TextEditor = () => {
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState("Write Here ...");
 
   const handleSave = () => {
     localStorage.setItem("richTextContent", content);

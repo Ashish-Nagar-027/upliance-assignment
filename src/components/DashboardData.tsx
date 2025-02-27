@@ -1,5 +1,6 @@
 import { Box, Button, Container, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import DOMPurify from "dompurify";
 
 interface DashboardDataProp {
   logout: () => void;
@@ -19,14 +20,22 @@ type dataType = {
 const DashboardData = ({ logout, userInfo }: DashboardDataProp) => {
   const count = localStorage.getItem("counter");
   const [formData, setFormData] = useState<dataType | null>(null);
+  const [content, setContent] = useState<string | null>(null);
 
   useEffect(() => {
+    const savedContent = localStorage.getItem("richTextContent");
     const userSavedData = localStorage.getItem("formData");
     if (userSavedData) {
       const parsedData = JSON.parse(userSavedData);
       setFormData({ ...parsedData });
     }
+
+    if (savedContent) {
+      setContent(savedContent);
+    }
   }, []);
+
+  const purifyContent = content ? DOMPurify.sanitize(content) : "";
 
   return (
     <Container
@@ -97,6 +106,16 @@ const DashboardData = ({ logout, userInfo }: DashboardDataProp) => {
               </div>
             )}
             {count && <p>Count value on counter : {count}</p>}
+            {content && (
+              <>
+                <hr></hr>
+                <h1 style={{ textAlign: "center", marginTop: "1rem" }}>
+                  Here is Form Data
+                </h1>
+
+                <div dangerouslySetInnerHTML={{ __html: purifyContent }} />
+              </>
+            )}
           </div>
         </div>
       </Box>
